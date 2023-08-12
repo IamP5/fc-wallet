@@ -1,0 +1,41 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+AddRelTag("async", $lineStyle = DashedLine())
+
+title "Digital Wallet Full Cycle"
+
+Person(client, "Client", "Digital Wallet User")
+System_Ext(payment_gateway, "Payment Gateway", "Payment Processor")
+
+System_Boundary(digital_wallet, "Digital Wallet") {
+  Container(spa, "SPA", "React", "Digital Wallet Web App")
+  Container(wallet_core, "Wallet Core", "TS", "Wallet Core is responsible for the transactions")
+  Container(balance_service, "Balance Microservice", "TS", "Returns customer balance")
+  Container(statement_servicem, "Statement Microservice", "TS", "Returns customer statement")
+  Container(payment_acl, "Payment ACL", "TS", "Anti-corruption layer for payment gateway")
+
+  ContainerDb(wallet_core_db, "Wallet Core DB", "MySQL")
+  Rel(wallet_core, wallet_core_db, "Uses", "JDBC")
+
+  ContainerDb(balance_service_db, "Balance DB", "MySQL")
+  Rel(balance_service, balance_service_db, "Uses", "JDBC")
+
+  ContainerDb(statement_service_db, "Statement DB", "MySQL")
+  Rel(statement_servicem, statement_service_db, "Uses", "JDBC")
+
+  ContainerDb(payment_acl_db, "Payment ACL DB", "MySQL")
+  Rel(payment_acl, payment_acl_db, "Uses", "JDBC")
+
+  Rel(client, spa, "Uses", "HTTPS")
+  Rel(spa, wallet_core, "Uses", "HTTPS")
+  Rel(spa, balance_service, "Uses", "HTTPS")
+  Rel(spa, statement_servicem, "Uses", "HTTPS")
+
+  Rel(wallet_core, payment_acl, "Uses", "HTTPS")
+  Rel(payment_acl, payment_gateway, "Uses", "HTTPS")
+
+  Rel(wallet_core, balance_service, "Uses", "Message Broker", $tags="async")
+  Rel(wallet_core, statement_servicem, "Uses", "Message Broker", $tags="async")
+}
+
+@enduml
