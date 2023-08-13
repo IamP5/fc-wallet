@@ -1,7 +1,7 @@
 package create_client
 
 import (
-	"github.com/IamP5/ms-wallet/internal/entity"
+	"github.com/IamP5/ms-wallet/wallet-core/internal/entity"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"testing"

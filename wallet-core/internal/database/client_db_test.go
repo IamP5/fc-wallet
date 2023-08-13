@@ -2,7 +2,7 @@ package database
 
 import (
 	"database/sql"
-	"github.com/IamP5/ms-wallet/internal/entity"
+	"github.com/IamP5/ms-wallet/wallet-core/internal/entity"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/suite"
 	"testing"

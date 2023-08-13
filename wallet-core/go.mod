@@ -1,4 +1,4 @@
-module github.com/IamP5/ms-wallet
+module github.com/IamP5/ms-wallet/wallet-core
 
 go 1.19
 

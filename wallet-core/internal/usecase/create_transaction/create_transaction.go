@@ -1,8 +1,8 @@
 package create_transaction
 
 import (
-	"github.com/IamP5/ms-wallet/internal/entity"
-	"github.com/IamP5/ms-wallet/internal/gateway"
+	"github.com/IamP5/ms-wallet/wallet-core/internal/entity"
+	"github.com/IamP5/ms-wallet/wallet-core/internal/gateway"
 )
 
 type CreateTransactionInputDTO struct {
