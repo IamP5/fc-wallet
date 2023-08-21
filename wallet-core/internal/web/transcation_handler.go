@@ -24,9 +24,11 @@ func (h *WebTransactionHandler) CreateTranscation(w http.ResponseWriter, r *http
 		return
 	}
 
-	output, err := h.CreateTranscationUseCase.Execute(dto)
+	ctx := r.Context()
+	output, err := h.CreateTranscationUseCase.Execute(ctx, dto)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
 		log.Printf("Error executing use case: %v", err)
 		return
 	}
